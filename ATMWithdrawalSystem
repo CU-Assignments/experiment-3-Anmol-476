@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+public class ATMWithdrawalSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double balance = 3000.0; // Initial balance
+        String correctPin = "1234"; // PIN for the account
+
+        try {
+            System.out.print("Enter PIN: ");
+            String enteredPin = scanner.nextLine();
+            if (!enteredPin.equals(correctPin)) {
+                throw new IllegalArgumentException("Invalid PIN.");
+            }
+
+            System.out.print("Enter withdrawal amount: ");
+            double amount = Double.parseDouble(scanner.nextLine());
+            if (amount > balance) {
+                throw new IllegalArgumentException("Insufficient balance.");
+            }
+            balance -= amount;
+            System.out.println("Withdrawal successful. Remaining balance: " + balance);
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+            System.out.println("Current Balance: " + balance);
+        } finally {
+            scanner.close();
+        }
+    }
+}
